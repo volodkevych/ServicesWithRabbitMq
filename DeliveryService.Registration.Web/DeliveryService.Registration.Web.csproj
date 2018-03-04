@@ -27,6 +27,7 @@
     <Folder Include="ViewModels\" />
     <Folder Include="Messages\" />
     <Folder Include="Views\Register\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Models\ErrorViewModel.cs" />

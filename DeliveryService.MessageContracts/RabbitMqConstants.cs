@@ -3,7 +3,9 @@ namespace DeliveryService.MessageContracts
 {
     public static class RabbitMqConstants
     {
-        public const string MabbitMqUri = "amqp://rabbitmq:rabbitmq@rabbit:5672/";
+        //TODO: Move to env vars
+        public const string RabbitMqUri = "amqp://rabbitmq:rabbitmq@rabbit:5672/";
+        //public const string RabbitMqUri = "amqp://rabbitmq:rabbitmq@localhost:5672/";
 
         public const string JsonMimeType = "application/json";
 

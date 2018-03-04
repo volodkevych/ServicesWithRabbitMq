@@ -3,16 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-
+using DeliveryService.Registration.Services;
 namespace DeliveryService.Registration.Controllers
 {
     [Route("api/[controller]")]
     public class RegistrationController : Controller
     {
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IRabbitMqManager rabbitMqManager;
+
+        public RegistrationController(IRabbitMqManager rabbitMqManager)
         {
-            return new string[] { "value1", "value2" };
+            this.rabbitMqManager = rabbitMqManager;
+        }
+
+        [HttpGet]
+        public string Get()
+        {
+            rabbitMqManager.ListenToRegisteredCommand();
+
+            return "ListenToRegisteredCommand finished";
         }
     }
 }

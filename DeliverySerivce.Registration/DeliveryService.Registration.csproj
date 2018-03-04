@@ -16,6 +16,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\" />
     <Folder Include="Messages\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,5 +30,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DeliveryService.MessageContracts\DeliveryService.MessageContracts.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Services\RegisterOrderConsumer.cs" />
   </ItemGroup>
 </Project>

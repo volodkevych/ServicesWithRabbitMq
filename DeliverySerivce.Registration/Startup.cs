@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using DeliveryService.Registration.Services;
 
 namespace DeliverySerivce.Registration
 {
@@ -24,6 +25,8 @@ namespace DeliverySerivce.Registration
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddScoped<IRabbitMqManager, RabbitMqManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

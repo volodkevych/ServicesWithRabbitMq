@@ -4,9 +4,9 @@ using RabbitMQ.Client;
 using Newtonsoft.Json;
 using System.Text;
 
-namespace DeliveryService.Registration.Web
+namespace DeliveryService.Registration.Web.Services
 {
-    public class RabbitMqManager : IDisposable
+    public class RabbitMqManager : IDisposable, IRabbitMqManager
     {
         private readonly IModel channel;
 
@@ -14,7 +14,7 @@ namespace DeliveryService.Registration.Web
         {
             var connectionFactory = new ConnectionFactory
             {
-                Uri = new Uri(RabbitMqConstants.MabbitMqUri)
+                Uri = new Uri(RabbitMqConstants.RabbitMqUri)
             };
             var connection = connectionFactory.CreateConnection();
             channel = connection.CreateModel();
