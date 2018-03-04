@@ -1,0 +1,18 @@
+# Build Stage
+FROM microsoft/aspnetcore-build:2 AS build-env
+
+WORKDIR /web
+
+COPY . .
+
+RUN dotnet restore DeliveryService.MessageContracts/DeliveryService.MessageContracts.csproj
+RUN dotnet restore DeliveryService.Notification/DeliveryService.Notification.csproj
+
+RUN dotnet publish DeliveryService.MessageContracts/DeliveryService.MessageContracts.csproj -o /publish
+RUN dotnet publish DeliveryService.Notification/DeliveryService.Notification.csproj -o /publish
+
+# Runtime Image Stage
+FROM microsoft/aspnetcore:2
+WORKDIR /publish
+COPY --from=build-env /publish .
+ENTRYPOINT ["dotnet", "DeliveryService.Notification.dll"]

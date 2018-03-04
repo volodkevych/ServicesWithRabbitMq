@@ -1,0 +1,55 @@
+version: '3.1'
+
+networks:
+  rmqnet:
+    driver: bridge
+
+services:
+
+  rabbit:
+    image: "rabbitmq:3-management"
+    hostname: "rabbit"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SHDGJSHGDJASGDJAS"
+      RABBITMQ_DEFAULT_USER: "rabbitmq"
+      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    labels:
+      NAME: "rabbit"
+    networks:
+      - rmqnet
+    volumes:
+      - "./enabled_plugins:/etc/rabbitmq/enabled_plugins"
+
+  registration-web:
+    build:
+      context: .
+      dockerfile: Dockerfile.registration.web
+    image: ovolodkevych/registration-web:v1
+    ports:
+      - "8080:80"
+    networks:
+      - rmqnet
+
+  registration:
+    build:
+      context: .
+      dockerfile: Dockerfile.registration
+    image: ovolodkevych/registration:v1
+    ports:
+      - "8081:80"
+    networks:
+      - rmqnet
+
+  notification:
+    build:
+      context: .
+      dockerfile: Dockerfile.notification
+    image: ovolodkevych/notification:v1
+    ports:
+      - "8082:80"
+    networks:
+      - rmqnet
